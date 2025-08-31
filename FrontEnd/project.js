@@ -1,6 +1,6 @@
 
         // Global variables
-        const API_BASE = 'https://localhost:7250/api'; // Update this to your API URL
+        const API_BASE = 'https://localhost:7096/api'; // Update this to your API URL
         let products = [];
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
