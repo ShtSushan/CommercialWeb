@@ -82,7 +82,7 @@ namespace EcommerceStore.Data
         private void SeedData(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 1, Name = "Smartphone", Description = "Latest model smartphone", Price = 699.99m, ImageUrl = "https://via.placeholder.com/200x200?text=Phone", Stock = 50, Category = "Electronics" },
+                new Product { Id = 1, Name = "Smartphone", Description = "Latest model smartphone", Price = 699.99m, ImageUrl = "https://hukut.com/_next/image?url=https%3A%2F%2Fcdn.hukut.com%2FCategory%2520Page%2520Web%2520View%2520(1).webp1754585005576&w=1920&q=75", Stock = 50, Category = "Electronics" },
                 new Product { Id = 2, Name = "Laptop", Description = "High-performance laptop", Price = 999.99m, ImageUrl = "https://via.placeholder.com/200x200?text=Laptop", Stock = 30, Category = "Electronics" },
                 new Product { Id = 3, Name = "T-Shirt", Description = "Cotton T-shirt", Price = 19.99m, ImageUrl = "https://via.placeholder.com/200x200?text=T-Shirt", Stock = 100, Category = "Clothing" },
                 new Product { Id = 4, Name = "Jeans", Description = "Blue jeans", Price = 49.99m, ImageUrl = "https://via.placeholder.com/200x200?text=Jeans", Stock = 75, Category = "Clothing" },

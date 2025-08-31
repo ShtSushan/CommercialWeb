@@ -35,12 +35,12 @@
                 console.error('Error loading products:', error);
                 // Fallback to demo data if API is not available
                 products = [
-                    { id: 1, name: "Smartphone", description: "Latest model smartphone", price: 699.99, imageUrl: "https://via.placeholder.com/200x200?text=Phone", stock: 50, category: "Electronics" },
-                    { id: 2, name: "Laptop", description: "High-performance laptop", price: 999.99, imageUrl: "https://via.placeholder.com/200x200?text=Laptop", stock: 30, category: "Electronics" },
-                    { id: 3, name: "T-Shirt", description: "Cotton T-shirt", price: 19.99, imageUrl: "https://via.placeholder.com/200x200?text=T-Shirt", stock: 100, category: "Clothing" },
-                    { id: 4, name: "Jeans", description: "Blue jeans", price: 49.99, imageUrl: "https://via.placeholder.com/200x200?text=Jeans", stock: 75, category: "Clothing" },
-                    { id: 5, name: "Headphones", description: "Wireless headphones", price: 199.99, imageUrl: "https://via.placeholder.com/200x200?text=Headphones", stock: 40, category: "Electronics" },
-                    { id: 6, name: "Sneakers", description: "Running sneakers", price: 79.99, imageUrl: "https://via.placeholder.com/200x200?text=Sneakers", stock: 60, category: "Footwear" }
+                    { id: 1, name: "Smartphone", description: "Latest model smartphone", price: 699.99, imageUrl: "https://via.placeholder.com/200", stock: 50, category: "Electronics" },
+                    { id: 2, name: "Laptop", description: "High-performance laptop", price: 999.99, imageUrl: "https://cdn.mos.cms.futurecdn.net/FUi2wwNdyFSwShZZ7LaqWf.jpg", stock: 30, category: "Electronics" },
+                    { id: 3, name: "T-Shirt", description: "Cotton T-shirt", price: 19.99, imageUrl: "https://neutral.com/cdn/shop/products/T61001_WHI_46640183-b2c8-40f2-bcf6-84e2bc4b9e23_1024x1024.jpg?v=1740048718", stock: 100, category: "Clothing" },
+                    { id: 4, name: "Jeans", description: "Blue jeans", price: 49.99, imageUrl: "https://shop.bluffworks.com/cdn/shop/files/2090.jpg?v=1707248803", stock: 75, category: "Clothing" },
+                    { id: 5, name: "Headphones", description: "Wireless headphones", price: 199.99, imageUrl: "https://hardwarepasal.com/src/img/product/2024-07-15-11-04-09_HFkLkJL6Q1product.webp", stock: 40, category: "Electronics" },
+                    { id: 6, name: "Sneakers", description: "Running sneakers", price: 79.99, imageUrl: "https://ca-times.brightspotcdn.com/dims4/default/821ddbe/2147483647/strip/true/crop/6122x4081+0+1/resize/1440x960!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F9b%2F7e%2F1f266c44478083aee69c36942a1d%2F1351750-fi-sneaker-buyer-coolkicks-jlc-16180-017.jpg", stock: 60, category: "Footwear" }
                 ];
                 displayProducts(products);
             }
@@ -80,6 +80,12 @@
 
         // Cart functionality
         function addToCart(productId) {
+              if (!currentUser) {
+        // redirect to login first
+        showSection('login');
+        document.getElementById("loginMessage").innerText = "Please login before adding items to cart.";
+        return;
+    }
             const product = products.find(p => p.id === productId);
             if (!product) return;
 
@@ -211,14 +217,23 @@
                     body: JSON.stringify(userData)
                 });
 
-                if (response.ok) {
-                    const user = await response.json();
-                    document.getElementById('registerMessage').innerHTML = 
-                        '<div class="success-message">Registration successful! You can now login.</div>';
-                    document.querySelector('#register form').reset();
-                } else {
-                    throw new Error('Registration failed');
-                }
+                // if (response.ok) {
+                //     const user = await response.json();
+                //     document.getElementById('registerMessage').innerHTML = 
+                //         '<div class="success-message">Registration successful! You can now login.</div>';
+                //     document.querySelector('#register form').reset();
+                // } else {
+                //     throw new Error('Registration failed');
+                // }
+
+                if (!response.ok) {
+                        const text = await response.text();
+                        console.error('Backend registration error:', text);
+                        document.getElementById('registerMessage').innerHTML = 
+                            `<div style="color:red; margin-top:1rem;">Registration failed: ${text}</div>`;
+                        return;
+                    }
+
             } catch (error) {
                 document.getElementById('registerMessage').innerHTML = 
                     '<div style="color: red; margin-top: 1rem;">Registration failed. Please try again.</div>';
